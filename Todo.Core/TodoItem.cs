@@ -1,28 +1,35 @@
-﻿namespace Todo.Core;
-
-public class TodoItem
+﻿// ------------------------------------------------------
+// <copyright file="TodoItem.cs" company="NATK">
+// Copyright (c) NATK. All rights reserved.
+// </copyright>
+// ------------------------------------------------------
+namespace Todo.Core
 {
-    public Guid Id { get; } = Guid.NewGuid();
-
-    public string Title { get; private set; }
-
-    public bool IsDone { get; private set; }
-
-    public TodoItem(string title)
+    public class TodoItem
     {
-        Title = title?.Trim() ?? throw new ArgumentNullException(nameof(title));
-    }
+        public Guid Id { get; } = Guid.NewGuid();
 
-    public void MarkDone() => IsDone = true;
+        public string Title { get; private set; }
 
-    public void MarkUndone() => IsDone = false;
+        public bool IsDone { get; private set; }
 
-    public void Rename(string newTitle)
-    {
-        if (string.IsNullOrWhiteSpace(newTitle))
+        public TodoItem(string title)
         {
-            throw new ArgumentException("Title is required", nameof(newTitle));
+            Title = title?.Trim() ?? throw new ArgumentNullException(nameof(title));
         }
-        Title = newTitle.Trim();
+
+        public void MarkDone() => IsDone = true;
+
+        public void MarkUndone() => IsDone = false;
+
+        public void Rename(string newTitle)
+        {
+            if (string.IsNullOrWhiteSpace(newTitle))
+            {
+                throw new ArgumentException("Title is required", nameof(newTitle));
+            }
+
+            Title = newTitle.Trim();
+        }
     }
 }
